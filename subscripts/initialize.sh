@@ -1,7 +1,6 @@
 #!/bin/bash
-# Borrowed from EthStaker's prepare for the merge guide
-# See https://github.com/remyroy/ethstaker/blob/main/prepare-for-the-merge.md#configuring-a-jwt-token-file
 
+# 1. Generate a JWT token
 mkdir -p $(pwd)/jwttoken
 if [[ ! -f $(pwd)/jwttoken/jwt.hex ]]
 then
@@ -9,3 +8,7 @@ then
 else
   echo "$(pwd)/jwttoken/jwt.hex already exists!"
 fi
+
+# 2. Generate data directories
+mkdir -p $(pwd)/datadir/execution
+mkdir -p $(pwd)/datadir/consensus
