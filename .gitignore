@@ -1,3 +1,6 @@
 datadir/
 jwttoken/
+wallet/
+
+# Generated from staking-deposit-cli
 validator_keys/

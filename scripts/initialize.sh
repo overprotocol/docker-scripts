@@ -12,3 +12,7 @@ fi
 # 2. Generate data directories
 mkdir -p $(pwd)/datadir/execution
 mkdir -p $(pwd)/datadir/consensus
+mkdir -p $(pwd)/datadir/validator
+
+# 3. Generate wallet directory
+mkdir -p $(pwd)/wallet
