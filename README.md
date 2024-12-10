@@ -10,6 +10,8 @@ Useful scripts to run Over Protocol with Docker 🐳
   - [Run a validator node](#run-a-validator-node)
     - [Generate validator keys](#generate-validator-keys)
     - [Send deposit transactions](#send-deposit-transactions)
+    - [Import keystores](#import-keystores)
+    - [Run a validator client](#run-a-validator-client)
   - [Q\&A](#qa)
 
 ## Initial Set Up
@@ -95,6 +97,35 @@ Transaction Hash: 0x512157ba292f64b048ba449fbc44bacb598dec365e597a954fbb3c43f2cf
 Transaction 2:
 Transaction Hash: 0x559a315785a069fffd023f03fe9b06d2640a32067042f7a37aff6c63a3cf79db
 // ...
+```
+
+### Import keystores
+
+```bash
+docker run -it -v $(pwd)/validator_keys:/keys \
+  -v $(pwd)/wallet:/wallet \
+  --name validator \
+  overfoundation/chronos-validator:latest \
+  accounts import \
+  --keys-dir=/keys \
+  --wallet-dir=/wallet \
+  --accept-terms-of-use
+```
+
+### Run a validator client
+
+**Before running this container, we strongly recommend you to add flag `--suggested-fee-recipient` to your Over address.**
+
+You can run validator client with the current full node by:
+
+```bash
+docker compose -f mainnet-validator.yml up -d
+```
+
+Check out logs by this command:
+
+```bash
+docker logs validator -f
 ```
 
 ## Q&A
