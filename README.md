@@ -2,6 +2,14 @@
 
 Useful scripts to run Over Protocol with Docker 🐳
 
+## Contents
+- [Docker Scripts for Over Protocol](#docker-scripts-for-over-protocol)
+  - [Contents](#contents)
+  - [Initial Set Up](#initial-set-up)
+  - [Run a full node](#run-a-full-node)
+  - [Run a validator node](#run-a-validator-node)
+  - [Q\&A](#qa)
+
 ## Initial Set Up
 
 1. Check if the latest version of Docker is available
@@ -38,8 +46,11 @@ docker logs kairos -f  # For inspect the execution client
 docker logs chronos -f # For inspect the consensus client
 ```
 
+## Run a validator node
 
-### Q&A
+To run a validator, you must stake your OVER to the network.
+
+## Q&A
 
 **Q) I would like to run a consensus client without checkpoint sync.**
 
