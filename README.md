@@ -16,7 +16,7 @@ Useful scripts to run Over Protocol with Docker 🐳
 
 ## Initial Set Up
 
-1. Check if the latest version of Docker is available
+1. Check if the latest version of Docker is installed
   
 ```bash
 docker -v
@@ -57,8 +57,8 @@ or use the following guides if you prefer Docker.
 
 ### Generate validator keys
 
-Our [staking-deposit-cli](https://github.com/overprotocol/staking-deposit-cli) provides a handy tool to generate a validator key and deposit data.
-Run following commands to generate:
+Our [staking-deposit-cli](https://github.com/overprotocol/staking-deposit-cli) provides a tool to generate validator keys and deposit data.
+Run the following command to generate them:
 
 ```bash
 docker run -it --rm -v $(pwd)/validator_keys:/app/validator_keys overfoundation/staking-deposit-cli:latest new-mnemonic
@@ -84,9 +84,9 @@ docker run -v $(pwd)/validator_keys:/app/validator_keys \
   over-staking
 ```
 
-You need three environment variables:
+You need to provide three environment variables:
 - `PUBLIC_RPC_URL`: Refer to [Network Configurations](https://docs.over.network/operators/run-a-node#network-configurations-).
-- `YOUR_PRIVATE_KEY_WITH_0x_PREFIX`: The private key that has enough fund.
+- `YOUR_PRIVATE_KEY_WITH_0x_PREFIX`: A private key with sufficient funds.
 - `YOUR_DEPOSIT_DATA_FILE_NAME`: File name that starts with `deposit_data-`.
 
 The result will be printed like:
