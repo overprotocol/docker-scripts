@@ -1,0 +1,24 @@
+version: "3.9"
+name: "overprotocol"
+
+networks:
+  over-network:
+    name: over-network
+    external: true
+
+services:
+  validator:
+    restart: unless-stopped
+    image: overfoundation/chronos-validator:latest
+    container_name: validator
+    networks:
+      - over-network
+    volumes:
+      - ./wallet:/wallet
+      - ./datadir/validator:/data
+    command: >
+      --wallet-dir /wallet
+      --datadir /data
+      --beacon-rpc-provider http://chronos:4000
+      # --suggested-fee-recipient
+
