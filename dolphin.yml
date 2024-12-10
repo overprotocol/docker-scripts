@@ -21,10 +21,10 @@ services:
       --authrpc.jwtsecret /jwt/jwt.hex
       --authrpc.vhosts "*"
 
-  chronos:
+  chronos-dolphin:
     restart: unless-stopped
     image: overfoundation/chronos-beacon-chain:latest
-    container_name: chronos
+    container_name: chronos-dolphin
     depends_on:
       - kairos-dolphin
     ports:
