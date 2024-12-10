@@ -1,0 +1,49 @@
+version: "3.9"
+name: "overprotocol"
+
+services:
+  kairos:
+    restart: unless-stopped
+    image: overfoundation/kairos:latest
+    container_name: kairos
+    ports:
+      - "8545:8545" # HTTP RPC
+      - "8551:8551" # Engine API
+      - "30303:30303" # P2P TCP
+    volumes:
+      - ./datadir/execution:/data
+      - ./jwttoken:/jwt:ro
+    command: >
+      --datadir /data
+      --authrpc.addr 0.0.0.0 
+      --authrpc.port 8551
+      --authrpc.jwtsecret /jwt/jwt.hex
+      --authrpc.vhosts "*"
+
+  chronos:
+    restart: unless-stopped
+    image: overfoundation/chronos-beacon-chain:latest
+    container_name: chronos
+    depends_on:
+      - kairos
+    ports:
+      - "3500:3500" # HTTP RPC
+      - "4000:4000" # Beacon chain RPC port
+      - "13000:13000/tcp" # P2P TCP
+      - "12000:12000/udp" # P2P UDP
+    volumes:
+      - ./datadir/consensus:/data
+      - ./jwttoken:/jwt:ro
+    environment:
+      - PUBLIC_IP=${PUBLIC_IP}
+    command: >
+      --accept-terms-of-use
+      --datadir /data
+      --execution-endpoint http://kairos:8551
+      --jwt-secret /jwt/jwt.hex
+      --rpc-host=0.0.0.0
+      --p2p-host-ip=${PUBLIC_IP}
+      --http-cors-domain "*" 
+      --http-host=0.0.0.0
+      --checkpoint-sync-url=https://mainnet-checkpoint.over.network/
+
