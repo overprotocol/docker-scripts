@@ -1,11 +1,17 @@
 version: "3.9"
 name: "overprotocol"
 
+networks:
+  over-network:
+    name: over-network
+
 services:
   kairos:
     restart: unless-stopped
     image: overfoundation/kairos:latest
     container_name: kairos
+    networks:
+      - over-network
     ports:
       - "8545:8545" # HTTP RPC
       - "8551:8551" # Engine API
@@ -24,6 +30,8 @@ services:
     restart: unless-stopped
     image: overfoundation/chronos-beacon-chain:latest
     container_name: chronos
+    networks:
+      - over-network
     depends_on:
       - kairos
     ports:
