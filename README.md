@@ -74,7 +74,9 @@ You can use our Docker container to send deposit transactions. First, build the 
 docker build -t over-staking send-deposit/.
 ```
 
-Then run the container with your private key and deposit data:
+### Option 1: Using Private Key
+
+Run the container with your private key and deposit data:
 
 ```bash
 docker run -v $(pwd)/validator_keys:/app/validator_keys \
@@ -84,10 +86,41 @@ docker run -v $(pwd)/validator_keys:/app/validator_keys \
   over-staking
 ```
 
-You need to provide three environment variables:
+### Option 2: Using Ledger Hardware Wallet
+
+For enhanced security, you can use a Ledger hardware wallet:
+
+```bash
+docker run -v $(pwd)/validator_keys:/app/validator_keys \
+  --device /dev/hidraw0 \
+  --device /dev/hidraw1 \
+  --device /dev/hidraw2 \
+  --device /dev/hidraw3 \
+  -e PUBLIC_RPC_URL=PUBLIC_RPC_URL \
+  -e USE_LEDGER=true \
+  -e LEDGER_PATH="44'/60'/0'/0/0" \
+  -e DEPOSIT_DATA_FILE_NAME=YOUR_DEPOSIT_DATA_FILE_NAME \
+  over-staking
+```
+
+**Important Notes for Ledger Usage**:
+- Make sure your Ledger device is connected, unlocked, and the Ethereum app is open
+- Enable "Blind signing" in the Ethereum app Settings on your Ledger device
+- For macOS/Linux: USB device access requires `--privileged` flag
+- The Ledger will prompt you to confirm the transaction on the device screen
+
+### Environment Variables
+
+Required variables:
 - `PUBLIC_RPC_URL`: Refer to [Network Configurations](https://docs.over.network/operators/run-a-node#network-configurations-).
-- `YOUR_PRIVATE_KEY_WITH_0x_PREFIX`: A private key with sufficient funds.
-- `YOUR_DEPOSIT_DATA_FILE_NAME`: File name that starts with `deposit_data-`.
+- `DEPOSIT_DATA_FILE_NAME`: File name that starts with `deposit_data-`.
+
+For Private Key method:
+- `PRIVATE_KEY`: A private key with sufficient funds (with 0x prefix).
+
+For Ledger method:
+- `USE_LEDGER`: Set to `true` to use Ledger hardware wallet.
+- `LEDGER_PATH`: HD derivation path (default: "44'/60'/0'/0/0").
 
 The result will be printed like:
 

@@ -2,6 +2,8 @@
   "name": "over-staking",
   "version": "1.0.0",
   "dependencies": {
-    "ethers": "^5.7.2"
+    "ethers": "^5.7.2",
+    "@ledgerhq/hw-transport-node-hid": "^6.27.1",
+    "@ledgerhq/hw-app-eth": "^6.33.1"
   }
 }
