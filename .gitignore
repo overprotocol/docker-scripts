@@ -3,4 +3,6 @@ jwttoken/
 wallet/
 
 # Generated from staking-deposit-cli
-validator_keys/
+validator_keys/node_modules/
+send-deposit/node_modules/
+package-lock.json
